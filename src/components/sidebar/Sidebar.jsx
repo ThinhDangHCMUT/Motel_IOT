@@ -33,7 +33,7 @@ const Sidebar = () => {
     <div className="sidebar">
       <div className="top">
         <Link to="/dashboard" style={{ textDecoration: "none" }}>
-          <span className="logo">lamadmin</span>
+          <span className="logo">Motel Tracking</span>
         </Link>
       </div>
       <hr />
@@ -46,16 +46,12 @@ const Sidebar = () => {
               <span>Dashboard</span>
             </li>
           </Link>
-          {user?.UserType === "admin" ? (
-            <Link to="/users" style={{ textDecoration: "none" }}>
-              <li >
-                <PersonOutlineIcon className="icon" />
-                <span>Users</span>
-              </li>
-            </Link>
-          ) : (
-            ""
-          )}
+          <Link to="/users" style={{ textDecoration: "none" }}>
+            <li onClick={getInfoRoom}>
+              <PersonOutlineIcon className="icon" />
+              <span>Users</span>
+            </li>
+          </Link>
           {/* <Link to="/products" style={{ textDecoration: "none" }}>
             <li>
               <StoreIcon className="icon" />
