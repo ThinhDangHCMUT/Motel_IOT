@@ -1,23 +1,34 @@
 import "./datatable.scss";
-import { DataGrid, GridRowsProp, GridColDef  } from "@mui/x-data-grid";
-import { userColumns, userRows } from "../../datatablesource";
+import axios from "axios";
+import { DataGrid } from "@mui/x-data-grid";
+import { userColumns } from "../../datatablesource";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 const Datatable = () => {
-  const [data, setData] = useState(JSON.parse(localStorage.getItem("ROOMS")));
+  const [data, setData] = useState({id:"",});
   // console.log(localStorage.getItem("USER"));
   // console.log(localStorage.getItem("ROOMS"));
-  console.log(data)
-  // useEffect(() => {
-  //   setData(JSON.parse(localStorage.getItem("ROOMS")).map((item,index) => {
-  //     return {
-  //         ...item,
-  //         id: index,
-  //     }
-  //   }));
+  // console.log(data)
+  useEffect(() => {
+    const myInterval = setInterval( async () =>{
+      await axios.get("http://localhost:8000/rooms")
+      .then(response => {
+        console.log(response.data)
+        setData(response.data.map((item,index) => {
+          return {
+            id: index,
+              ...item,
+          }
+        }));
+        localStorage.setItem("ROOMS", JSON.stringify(data))
+      })
+    }, 2000)
+    return () => {
+      clearInterval(myInterval);
+    };
     
-  // }, [data]);
+  }, [data]);
 
   const actionColumn = [
     {
