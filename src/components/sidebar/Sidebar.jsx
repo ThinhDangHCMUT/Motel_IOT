@@ -28,28 +28,12 @@ const Sidebar = () => {
     navigate("/")
   }
 
-  const getInfoRoom = async () => {
-    await axios.get("http://localhost:8000/rooms")
-    .then(response => {
-      console.log(response.data)
-      setData(response.data.map((item,index) => {
-        return {
-          id: index,
-            ...item,
-        }
-      }));
-      localStorage.setItem("ROOMS", JSON.stringify(data))
-    })
-    .catch(error => {
-      console.log(error)
-    })
-  }
 
   return (
     <div className="sidebar">
       <div className="top">
         <Link to="/dashboard" style={{ textDecoration: "none" }}>
-          <span className="logo">lamadmin</span>
+          <span className="logo">Motel Tracking</span>
         </Link>
       </div>
       <hr />
@@ -63,7 +47,7 @@ const Sidebar = () => {
             </li>
           </Link>
           <Link to="/users" style={{ textDecoration: "none" }}>
-            <li onClick={getInfoRoom}>
+            <li>
               <PersonOutlineIcon className="icon" />
               <span>Users</span>
             </li>

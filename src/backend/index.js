@@ -29,16 +29,11 @@ connection.connect((err) => {
     console.log('Connected to MySQL database!');
 });
 
-// const isAuthenticated = (req, res, next) => {
-//     if (req.session.user) {
-//         return next();
-//     } else {
-//         res.status(401).send('Unauthorized');
-//     }
-// }
-
 app.post('/login', (req, res) => {
     const { username, password } = req.body;
+    console.log(req.body)
+    console.log(username)
+    console.log(password)
     connection.query('SELECT * FROM User WHERE Username = ? AND Password = ?', [username, password], (error, results, fields) => {
         if (results.length > 0) {
             const user = results[0];
