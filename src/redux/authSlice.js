@@ -59,4 +59,5 @@ export const {
   registerStart,
   logout,
 } = authSlice.actions;
+
 export default authSlice.reducer;
