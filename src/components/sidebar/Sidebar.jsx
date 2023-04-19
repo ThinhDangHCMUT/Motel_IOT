@@ -46,12 +46,12 @@ const Sidebar = () => {
               <span>Dashboard</span>
             </li>
           </Link>
-          <Link to="/users" style={{ textDecoration: "none" }}>
-            <li onClick={getInfoRoom}>
+         {user?.UserType=="admin"&&( <Link to="/users" style={{ textDecoration: "none" }}>
+            <li >
               <PersonOutlineIcon className="icon" />
               <span>Users</span>
             </li>
-          </Link>
+          </Link>)}
           {/* <Link to="/products" style={{ textDecoration: "none" }}>
             <li>
               <StoreIcon className="icon" />
