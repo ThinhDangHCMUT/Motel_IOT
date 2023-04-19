@@ -60,9 +60,9 @@ const Home = () => {
         <div className="charts">
           <Featured />
           {data?.UserType === "user" ? (
-            <Chart data={user} title="Last 6 Months (Revenue)" aspect={2 / 1} />
+            <Chart data={user} title="Last Tracking" aspect={2 / 1} />
           ) : (
-            <ChartAdmin data={admin} title="Last 6 Months (Revenue)" aspect={2 / 1} />
+            <ChartAdmin data={admin} title="Last Tracking" aspect={2 / 1} />
           )}
         </div>
         <div className="listContainer">

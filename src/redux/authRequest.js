@@ -27,10 +27,12 @@ export const loginUser = async (user, dispatch, navigate) => {
   });
   return users;
 };
+
 export const logoutUser = async (dispatch, navigate) => {
   dispatch(logout());
   navigate("/login");
 };
+
 export const registerUser = async (user, dispatch, navigate) => {
   dispatch(registerStart());
   try {
