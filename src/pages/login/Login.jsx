@@ -1,20 +1,24 @@
 import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
+import {loginUser} from "../../redux/authRequest"
 import "./login.scss";
+import { useDispatch } from "react-redux";
 
 const Login = () => {
   const [user, setUser] = useState({ username: "", password: "" });
   const navigate = useNavigate();
+  const dispatch = useDispatch()
   console.log(user);
 
   const handleLogin = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.post('http://localhost:8000/login', user);
-      console.log("Data: ",response.data)
-      localStorage.setItem('USER', JSON.stringify(response.data));
-      navigate('/dashboard');
+      loginUser(user,dispatch,navigate)
+      // const response = await axios.post('https://d594-118-69-158-111.ngrok-free.app/login', user);
+      // console.log("Data: ",response.data)
+      // localStorage.setItem('USER', JSON.stringify(response.data));
+      // navigate('/dashboard');
     } catch (error) {
       console.log(error);
     }

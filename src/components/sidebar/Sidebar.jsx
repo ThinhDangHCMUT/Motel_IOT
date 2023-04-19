@@ -14,36 +14,20 @@ import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined
 import { Link, useNavigate } from "react-router-dom";
 import { DarkModeContext } from "../../context/darkModeContext";
 import { useContext, useState } from "react";
-import axios from "axios";
-
+import { useSelector } from "react-redux";
 const Sidebar = () => {
+  const user = useSelector((state) => state?.auth?.login?.currentUser);
+  console.log(user)
   const { dispatch } = useContext(DarkModeContext);
   const navigate = useNavigate();
-  const [data, setData] = useState({id:"", });
-  console.log("data:", data)
-
+  const [data, setData] = useState({ id: "" });
+  console.log("data:", data);
   const handleLogOut = () => {
     localStorage.removeItem("USER");
     localStorage.removeItem("ROOMS");
-    navigate("/")
-  }
+    navigate("/");
+  };
 
-  const getInfoRoom = async () => {
-    await axios.get("http://localhost:8000/rooms")
-    .then(response => {
-      console.log(response.data)
-      setData(response.data.map((item,index) => {
-        return {
-          id: index,
-            ...item,
-        }
-      }));
-      localStorage.setItem("ROOMS", JSON.stringify(data))
-    })
-    .catch(error => {
-      console.log(error)
-    })
-  }
 
   return (
     <div className="sidebar">
@@ -62,12 +46,16 @@ const Sidebar = () => {
               <span>Dashboard</span>
             </li>
           </Link>
-          <Link to="/users" style={{ textDecoration: "none" }}>
-            <li onClick={getInfoRoom}>
-              <PersonOutlineIcon className="icon" />
-              <span>Users</span>
-            </li>
-          </Link>
+          {user?.UserType === "admin" ? (
+            <Link to="/users" style={{ textDecoration: "none" }}>
+              <li >
+                <PersonOutlineIcon className="icon" />
+                <span>Users</span>
+              </li>
+            </Link>
+          ) : (
+            ""
+          )}
           {/* <Link to="/products" style={{ textDecoration: "none" }}>
             <li>
               <StoreIcon className="icon" />
