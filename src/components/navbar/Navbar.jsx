@@ -8,10 +8,12 @@ import ChatBubbleOutlineOutlinedIcon from "@mui/icons-material/ChatBubbleOutline
 import ListOutlinedIcon from "@mui/icons-material/ListOutlined";
 import { DarkModeContext } from "../../context/darkModeContext";
 import { useContext } from "react";
+import { useSelector } from "react-redux";
 
 const Navbar = () => {
   const { dispatch } = useContext(DarkModeContext);
-  const user = JSON.parse(localStorage.getItem("USER"));
+ 
+  const user = useSelector((state) => state?.auth?.login?.currentUser);
 
   return (
     <div className="navbar">
@@ -51,7 +53,7 @@ const Navbar = () => {
               alt=""
               className="avatar"
             />
-            <p style={{marginLeft: "10px"}}>{user.Username}</p>
+            <p style={{marginLeft: "10px"}}>{user?.Username}</p>
           </div>
         </div>
       </div>

@@ -14,19 +14,19 @@ import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined
 import { Link, useNavigate } from "react-router-dom";
 import { DarkModeContext } from "../../context/darkModeContext";
 import { useContext, useState } from "react";
-import axios from "axios";
-
+import { useSelector } from "react-redux";
 const Sidebar = () => {
+  const user = useSelector((state) => state?.auth?.login?.currentUser);
+  console.log(user)
   const { dispatch } = useContext(DarkModeContext);
   const navigate = useNavigate();
-  const [data, setData] = useState({id:"", });
-  console.log("data:", data)
-
+  const [data, setData] = useState({ id: "" });
+  console.log("data:", data);
   const handleLogOut = () => {
     localStorage.removeItem("USER");
     localStorage.removeItem("ROOMS");
-    navigate("/")
-  }
+    navigate("/");
+  };
 
 
   return (
@@ -47,7 +47,7 @@ const Sidebar = () => {
             </li>
           </Link>
           <Link to="/users" style={{ textDecoration: "none" }}>
-            <li>
+            <li onClick={getInfoRoom}>
               <PersonOutlineIcon className="icon" />
               <span>Users</span>
             </li>
