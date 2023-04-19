@@ -53,20 +53,19 @@ app.get('/rooms', (req, res) => {
 });
 
 app.get('/room/:id', (req, res) => {
-    const userID = req.params.id;
-    connection.query('SELECT * FROM Room WHERE UserID = ?', [userID], (error, results, fields) => {
-      if (error) throw error;
-      res.send(results);
+    const roomID = req.params.id;
+    let q =`SELECT re.ElectricReading, re.WaterReading, re.ReadingDate, r.roomName, r.roomType, u.Email, u.UserName, u.Phone FROM reading re 
+    JOIN room r ON r.RoomID = re.RoomID
+    JOIN user u ON u.UserID = r.UserID
+    WHERE r.RoomID = ?`
+    connection.query(q, [roomID], (error, results, fields) => {
+        if (error) throw error;
+        res.send(results);
     });
 });
 
-app.get('/readings/:id', (req, res) => {
-    const roomID = req.params.id;
-    connection.query('SELECT * FROM Reading WHERE RoomID = ?', [roomID], (error, results, fields) => {
-      if (error) throw error;
-      res.send(results);
-    });
-});
+
+
 
 app.get('/logout', (req, res) => {
     req.session.destroy();

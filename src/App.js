@@ -23,7 +23,7 @@ function App() {
             <Route path="dashboard" element={<Home />} />
             <Route path="users">
               <Route index element={<List />} />
-              <Route path=":userId" element={<Single />} />
+              <Route path=":RoomID" element={<Single />} />
               <Route
                 path="new"
                 element={<New inputs={userInputs} title="Add New User" />}

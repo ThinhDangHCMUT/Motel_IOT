@@ -9,7 +9,9 @@ import {
 } from "./authSlice";
 import axios from "axios";
 
-const BASE_URL = "https://d594-118-69-158-111.ngrok-free.app";
+// const BASE_URL_1 = "https://d594-118-69-158-111.ngrok-free.app";
+const BASE_URL = "http://localhost:8000";
+
 export const loginUser = async (user, dispatch, navigate) => {
   dispatch(loginStart());
   const users = await axios.post(`${BASE_URL}/login`, user).then((res) => {
@@ -49,3 +51,11 @@ export const registerUser = async (user, dispatch, navigate) => {
   }
 };
 
+export const getUserRoomDetails = async (id) => {
+  const RoomData=await axios.get(`${BASE_URL}/room/${id}`)
+  .then(res => {
+    return res.data
+  })
+  return RoomData
+}
+ 

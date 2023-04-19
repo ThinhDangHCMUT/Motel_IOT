@@ -12,7 +12,7 @@ const Datatable = () => {
   // console.log(data)
   useEffect(() => {
     const myInterval = setInterval( async () =>{
-      await axios.get("https://d594-118-69-158-111.ngrok-free.app/rooms")
+      await axios.get("http://localhost:8000/rooms")
       .then(response => {
         console.log(response.data)
         setData(response.data.map((item,index) => {
@@ -38,7 +38,7 @@ const Datatable = () => {
       renderCell: (params) => {
         return (
           <div className="cellAction">
-            <Link to={`/users/${params.row.RoomId}`} style={{ textDecoration: "none" }}>
+            <Link to={`/users/${params.row.RoomID}`} style={{ textDecoration: "none" }}>
               <div className="viewButton">View</div>
             </Link>
           </div>
