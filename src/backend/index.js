@@ -55,16 +55,21 @@ app.get('/rooms', (req, res) => {
 app.get('/room/:id', (req, res) => {
     const userID = req.params.id;
     connection.query('SELECT * FROM Room WHERE UserID = ?', [userID], (error, results, fields) => {
-      if (error) throw error;
-      res.send(results);
+        if (error) throw error;
+        res.send(results);
     });
 });
 
+
+
+
 app.get('/readings/:id', (req, res) => {
     const roomID = req.params.id;
-    connection.query('SELECT * FROM Reading WHERE RoomID = ?', [roomID], (error, results, fields) => {
-      if (error) throw error;
-      res.send(results);
+    let q = 'SELECT re.ElectricReading, re.WaterReading, re.ReadingDate, r.roomName, r.roomType, u.Username, u.Email FROM reading re INNER JOIN room r ON r.RoomID = ?'
+    q += 'INNER JOIN user u ON r.UserID = u.UserID'
+    connection.query(q, [roomID], (error, results, fields) => {
+        if (error) throw error;
+        res.send(results);
     });
 });
 

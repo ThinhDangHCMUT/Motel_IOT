@@ -47,7 +47,7 @@ const Sidebar = () => {
             </li>
           </Link>
           <Link to="/users" style={{ textDecoration: "none" }}>
-            <li onClick={getInfoRoom}>
+            <li>
               <PersonOutlineIcon className="icon" />
               <span>Users</span>
             </li>
