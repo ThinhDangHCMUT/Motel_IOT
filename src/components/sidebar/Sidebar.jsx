@@ -15,6 +15,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { DarkModeContext } from "../../context/darkModeContext";
 import { useContext, useState } from "react";
 import { useSelector } from "react-redux";
+import { logout } from "../../redux/authSlice";
 const Sidebar = () => {
   const user = useSelector((state) => state?.auth?.login?.currentUser);
   console.log(user)
@@ -23,8 +24,7 @@ const Sidebar = () => {
   const [data, setData] = useState({ id: "" });
   console.log("data:", data);
   const handleLogOut = () => {
-    localStorage.removeItem("USER");
-    localStorage.removeItem("ROOMS");
+    logout()
     navigate("/");
   };
 
