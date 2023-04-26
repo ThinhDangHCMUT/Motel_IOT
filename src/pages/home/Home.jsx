@@ -9,8 +9,9 @@ import Featured from "../../components/featured/Featured";
 import Chart from "../../components/chart/Chart";
 import ChartAdmin from "../../components/chartadmin/ChartAdmin";
 import Table from "../../components/table/Table";
+import TableAdmin from "../../components/tableAdmin/TableAdmin";
 import "./home.scss";
-import { setIn } from "immutable";
+// import { setIn } from "immutable";
 
 const Home = () => {
   const data = useSelector((state) => {
@@ -18,7 +19,7 @@ const Home = () => {
   });
   const [user, setUser] = useState([]);
   const [admin, setAdmin] = useState([]);
-  console.log(admin);
+  console.log("asdasdsa: ",admin);
   
   useEffect(async () => {
     const temp = await getUserRoomDetails(data.RoomID);
@@ -52,9 +53,9 @@ const Home = () => {
       <div className="homeContainer">
         <Navbar />
         <div className="widgets">
-          <Widget type="user" />
-          <Widget type="order" />
-          <Widget type="earning" />
+          <Widget type="room" />
+          <Widget type="water" />
+          <Widget type="electric" />
           <Widget type="balance" />
         </div>
         <div className="charts">
@@ -70,7 +71,7 @@ const Home = () => {
           {data?.UserType === "user" ? (
             <Table data={user}/>
           ) : (
-            <></>
+            <TableAdmin data={admin}/>
           )}
         </div>
       </div>

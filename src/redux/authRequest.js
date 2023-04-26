@@ -54,10 +54,17 @@ export const registerUser = async (user, dispatch, navigate) => {
 };
 
 export const getUserRoomDetails = async (id) => {
-  const RoomData=await axios.get(`${BASE_URL}/room/${id}`)
+  const RoomData = await axios.get(`${BASE_URL}/room/${id}`)
   .then(res => {
     return res.data
   })
   return RoomData
 }
  
+export const getDataFromDevice = async () => {
+  const motelData = axios.get("http://localhost:8000/api/value")
+  .then(res => {
+    return res.data
+  })
+  return motelData
+}
