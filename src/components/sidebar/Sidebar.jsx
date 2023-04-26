@@ -46,7 +46,7 @@ const Sidebar = () => {
               <span>Dashboard</span>
             </li>
           </Link>
-         {user?.UserType=="admin"&&( <Link to="/users" style={{ textDecoration: "none" }}>
+         {user?.UserType === "admin"&&( <Link to="/users" style={{ textDecoration: "none" }}>
             <li >
               <PersonOutlineIcon className="icon" />
               <span>Users</span>

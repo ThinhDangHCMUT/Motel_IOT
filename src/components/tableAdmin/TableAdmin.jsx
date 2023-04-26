@@ -7,9 +7,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 
-const List = ({ data =[]}) => {
-
-
+const TableAdmin = ({ data =[]}) => {
   return (
     <TableContainer sx = {{ maxHeight:200}} component={Paper} className="table">
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -20,7 +18,6 @@ const List = ({ data =[]}) => {
             <TableCell className="tableCell">Water Cost (m3/VND)</TableCell>
             <TableCell className="tableCell">Electric (kWH)</TableCell>
             <TableCell className="tableCell">Electric Cost (kWH/VND)</TableCell>
-            {/* <TableCell className="tableCell">Threshold</TableCell> */}
             <TableCell className="tableCell">Status</TableCell>
           </TableRow>
         </TableHead>
@@ -28,23 +25,23 @@ const List = ({ data =[]}) => {
           {data && data?.map((item, index) => {
             let statusE = 0
             let statusW = 0
-            const initWater = data[index].WaterReading - data[0].WaterReading
-            const initElectric = data[index].ElectricReading - data[0].ElectricReading
+            const initWater = data[index].WATER - data[0].WATER
+            const initElectric = data[index].ELECTRIC - data[0].ELECTRIC
             if(index > 0 ){
-              statusE = data[index].ElectricReading - data[index - 1].ElectricReading - 150
-              statusW = data[index].WaterReading - data[index - 1].WaterReading - 150
+              statusE = data[index].ELECTRIC - data[index - 1].ELECTRIC - 150
+              statusW = data[index].WATER - data[index - 1].WATER - 150
             }
             return (
               <TableRow key={index}>
-                <TableCell className="tableCell">{  item.ReadingDate.split('T')[0].split('-').reverse().join('/')}</TableCell>
+                <TableCell className="tableCell">{ item.date }</TableCell>
                 <TableCell className="tableCell">
                   <div className="cellWrapper">
                     {/* <img src={row.img} alt="" className="image" /> */}
-                    {item.WaterReading}
+                    {item.WATER}
                   </div>
                 </TableCell>
                 <TableCell className="tableCell">{initWater}</TableCell>
-                <TableCell className="tableCell">{item.ElectricReading}</TableCell>
+                <TableCell className="tableCell">{item.ELECTRIC}</TableCell>
                 <TableCell className="tableCell">{initElectric}</TableCell>
                 {/* <TableCell className="tableCell">{item.method}</TableCell> */}
                 <TableCell className="tableCell">
@@ -59,4 +56,4 @@ const List = ({ data =[]}) => {
   );
 };
 
-export default List;
+export default TableAdmin;

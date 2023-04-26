@@ -7,21 +7,20 @@ import { useState, useEffect } from "react";
 
 const Datatable = () => {
   const [data, setData] = useState({id:"",});
-  // console.log(localStorage.getItem("USER"));
-  // console.log(localStorage.getItem("ROOMS"));
-  // console.log(data)
+
   useEffect(() => {
     const myInterval = setInterval( async () =>{
       await axios.get("http://localhost:8000/rooms")
       .then(response => {
         console.log(response.data)
+        localStorage.setItem("ROOM", JSON.stringify(response.data))
         setData(response.data.map((item,index) => {
           return {
-            id: index,
+            id: index,  
               ...item,
           }
-        }));
-        localStorage.setItem("ROOMS", JSON.stringify(data))
+        }))
+        // localStorage.setItem("ROOMS", JSON.stringify(data))
       })
     }, 2000)
     return () => {

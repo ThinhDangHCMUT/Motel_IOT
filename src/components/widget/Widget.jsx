@@ -1,25 +1,44 @@
-import "./widget.scss";
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { getDataFromDevice } from "../../redux/authRequest";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
-import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalanceWalletOutlined";
-import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import MonetizationOnOutlinedIcon from "@mui/icons-material/MonetizationOnOutlined";
+import BedroomParentIcon from "@mui/icons-material/BedroomParent";
+import WaterDropIcon from "@mui/icons-material/WaterDrop";
+import TungstenIcon from "@mui/icons-material/Tungsten";
+import "./widget.scss";
 
 const Widget = ({ type }) => {
   let data;
+  const [motelData, SetMotelData] = useState({water: "12", electric: "33"})
+  useEffect(() => {
+    const myInterval = setInterval(() => {
+      getDataFromDevice().then(res => {
+        console.log(res)
+        SetMotelData({
+          water: res.WATER,
+          electric: res.ELECTRIC
+        })
+      })
+    },1000)
+
+    return () => clearInterval(myInterval)
+  },[motelData])
 
   //temporary
   const amount = 100;
   const diff = 20;
 
   switch (type) {
-    case "user":
+    case "room":
       data = {
-        title: "USERS",
+        amount: 21,
+        title: "ROOM",
         isMoney: false,
-        link: "See all users",
+        link: "Xem danh sách phòng",
         icon: (
-          <PersonOutlinedIcon
+          <BedroomParentIcon
             className="icon"
             style={{
               color: "crimson",
@@ -29,13 +48,31 @@ const Widget = ({ type }) => {
         ),
       };
       break;
-    case "order":
+    case "water":
       data = {
-        title: "ORDERS",
+        amount: motelData.water,
+        title: "WATER",
         isMoney: false,
-        link: "View all orders",
+        link: "Chỉ số nước hiện tại",
         icon: (
-          <ShoppingCartOutlinedIcon
+          <WaterDropIcon
+            className="icon"
+            style={{
+              backgroundColor: "#B3FBFD",
+              color: "#01E6ED",
+            }}
+          />
+        ),
+      };
+      break;
+    case "electric":
+      data = {
+        amount: motelData.electric,
+        title: "ELECTRIC",
+        isMoney: true,
+        link: "Chỉ số điện hiện tại",
+        icon: (
+          <TungstenIcon
             className="icon"
             style={{
               backgroundColor: "rgba(218, 165, 32, 0.2)",
@@ -45,21 +82,9 @@ const Widget = ({ type }) => {
         ),
       };
       break;
-    case "earning":
-      data = {
-        title: "EARNINGS",
-        isMoney: true,
-        link: "View net earnings",
-        icon: (
-          <MonetizationOnOutlinedIcon
-            className="icon"
-            style={{ backgroundColor: "rgba(0, 128, 0, 0.2)", color: "green" }}
-          />
-        ),
-      };
-      break;
     case "balance":
       data = {
+        amount: 3000,
         title: "BALANCE",
         isMoney: true,
         link: "See details",
@@ -82,10 +107,14 @@ const Widget = ({ type }) => {
     <div className="widget">
       <div className="left">
         <span className="title">{data.title}</span>
-        <span className="counter">
-          {data.isMoney && "$"} {amount}
-        </span>
-        <span className="link">{data.link}</span>
+        <span className="counter">{data.amount}</span>
+        {data.title === "ROOM" ? (
+          <Link to="/users" style={{ textDecoration: "none" }}>
+            <span className="link">{data.link}</span>
+          </Link>
+        ) : (
+          <span className="link">{data.link}</span>
+        )}
       </div>
       <div className="right">
         <div className="percentage positive">
