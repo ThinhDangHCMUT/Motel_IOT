@@ -19,20 +19,21 @@ const Home = () => {
   });
   const [user, setUser] = useState([]);
   const [admin, setAdmin] = useState([]);
-  console.log("asdasdsa: ",admin);
+
+  console.log(user)
   
   useEffect(async () => {
     const temp = await getUserRoomDetails(data.RoomID);
-    console.log(temp);
+    console.log("ádsadsad:", temp);
     setUser(temp);
   }, []);
+  
 
   useEffect(() => {
     axios.get("http://localhost:8000/api/value")
     .then(response => {
       setAdmin(state=>{return [...state,response.data]});
     })
-  
   },[])
 
   useEffect(() => {
@@ -42,7 +43,7 @@ const Home = () => {
       .then(response => {
         setAdmin(state=>{return [...state,response.data]});
       })
-    },10000)
+    },1000)
 
     return () => clearInterval(myInterval)
   },[admin])
@@ -53,10 +54,10 @@ const Home = () => {
       <div className="homeContainer">
         <Navbar />
         <div className="widgets">
-          <Widget type="room" />
-          <Widget type="water" />
-          <Widget type="electric" />
-          <Widget type="balance" />
+          <Widget type="room" value={data.RoomID}/>
+          <Widget type="water" value={user[user.length - 1]?.WaterReading - user[0]?.WaterReading }/>
+          <Widget type="electric" value={user[user.length - 1]?.ElectricReading - user[0]?.ElectricReading }/>
+          <Widget type="balance" value={(user[user.length - 1]?.WaterReading - user[0]?.WaterReading)* 2000 + (user[user.length - 1]?.ElectricReading - user[0]?.ElectricReading)*2500 }/>
         </div>
         <div className="charts">
           <Featured />
@@ -67,7 +68,7 @@ const Home = () => {
           )}
         </div>
         <div className="listContainer">
-          <div className="listTitle">Latest Transactions</div>
+          <div className="listTitle">Latest Tracking</div>
           {data?.UserType === "user" ? (
             <Table data={user}/>
           ) : (

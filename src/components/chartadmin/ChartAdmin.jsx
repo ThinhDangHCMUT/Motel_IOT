@@ -34,7 +34,7 @@ const ChartAdmin = ({ aspect, title, data }) => {
           <CartesianGrid strokeDasharray="3 3" className="chartGrid" />
           <Tooltip />
           <Legend />
-          <Line type="monotone" dataKey="ELECTRIC" stroke="#8884d8" />
+          <Line type="monotone" dataKey="ENERGY" stroke="#8884d8" />
           <Line type="monotone" dataKey="WATER" stroke="#82ca9d" />
           {/* <Area
             type="monotone"
