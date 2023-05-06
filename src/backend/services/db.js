@@ -1,12 +1,23 @@
-const mysql = require('mysql');
+const mysql = require('mysql2');
+
+// const pool = mysql.createPool({
+//   connectionLimit: 10,
+//   host: 'localhost',
+//   user: 'root',
+//   password: 'D@ngthinh1402',
+//   database: 'motel_schema2'
+// });
 
 const pool = mysql.createPool({
   connectionLimit: 10,
-  host: 'localhost',
-  user: 'root',
-  password: 'D@ngthinh1402',
-  database: 'motel_schema2'
+  user: "root",
+  host: "containers-us-west-207.railway.app",
+  password: "QpM2kjzDJrGR03esoFt0",
+  database: "railway",
+  port : "7552",
+  debug: true
 });
+
 
 let db={}
 
@@ -19,6 +30,7 @@ db.loginUser = (username,password) => {
   })
 }
 
+
 db.allRooms = () => {
   return new Promise((resolve, reject) => {
     pool.query("SELECT RoomID, RoomName, FullName, Phone, RoomType FROM Room r INNER JOIN User u ON r.UserID = u.UserID", (err, res) => {
@@ -27,6 +39,7 @@ db.allRooms = () => {
     })
   })
 }
+
 
 db.getRoomByID = (id) => {
   return new Promise((resolve, reject) => {

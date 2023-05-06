@@ -8,8 +8,14 @@ import BedroomParentIcon from "@mui/icons-material/BedroomParent";
 import WaterDropIcon from "@mui/icons-material/WaterDrop";
 import TungstenIcon from "@mui/icons-material/Tungsten";
 import "./widget.scss";
+import { useSelector } from "react-redux";
 
-const Widget = ({ type }) => {
+const Widget = ({ type , value}) => {
+  const user = useSelector((state) => {
+    return state.auth.login.currentUser;
+  })
+
+  console.log(user)
   let data;
   const [motelData, SetMotelData] = useState({water: "12", electric: "33"})
   useEffect(() => {
@@ -18,7 +24,7 @@ const Widget = ({ type }) => {
         console.log(res)
         SetMotelData({
           water: res.WATER,
-          electric: res.ELECTRIC
+          electric: res.ENERGY
         })
       })
     },1000)
@@ -33,10 +39,10 @@ const Widget = ({ type }) => {
   switch (type) {
     case "room":
       data = {
-        amount: 21,
-        title: "ROOM",
+        amount: user.UserType === 'admin' ? 21 : value ,
+        title: user.UserType === 'admin' ? "SỐ PHÒNG" : "PHÒNG",
         isMoney: false,
-        link: "Xem danh sách phòng",
+        link: user.UserType === 'admin' ? "Xem danh sách phòng": "",
         icon: (
           <BedroomParentIcon
             className="icon"
@@ -50,8 +56,8 @@ const Widget = ({ type }) => {
       break;
     case "water":
       data = {
-        amount: motelData.water,
-        title: "WATER",
+        amount: user.UserType === 'admin' ? motelData.water : value,
+        title: "CHỈ SỐ NƯỚC",
         isMoney: false,
         link: "Chỉ số nước hiện tại",
         icon: (
@@ -67,8 +73,8 @@ const Widget = ({ type }) => {
       break;
     case "electric":
       data = {
-        amount: motelData.electric,
-        title: "ELECTRIC",
+        amount: user.UserType === 'admin' ? motelData.electric : value,
+        title: "CHỈ SỐ ĐIỆN",
         isMoney: true,
         link: "Chỉ số điện hiện tại",
         icon: (
@@ -84,8 +90,8 @@ const Widget = ({ type }) => {
       break;
     case "balance":
       data = {
-        amount: 3000,
-        title: "BALANCE",
+        amount: user.UserType === 'admin' ? '0.00 VND' : value + " VND",
+        title: "TỔNG GIÁ ĐIỆN NƯỚC",
         isMoney: true,
         link: "See details",
         icon: (
@@ -108,7 +114,7 @@ const Widget = ({ type }) => {
       <div className="left">
         <span className="title">{data.title}</span>
         <span className="counter">{data.amount}</span>
-        {data.title === "ROOM" ? (
+        {data.title === "SỐ PHÒNG" ? (
           <Link to="/users" style={{ textDecoration: "none" }}>
             <span className="link">{data.link}</span>
           </Link>

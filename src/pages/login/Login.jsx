@@ -15,10 +15,6 @@ const Login = () => {
     event.preventDefault();
     try {
       loginUser(user,dispatch,navigate)
-      // const response = await axios.post('https://d594-118-69-158-111.ngrok-free.app/login', user);
-      // console.log("Data: ",response.data)
-      // localStorage.setItem('USER', JSON.stringify(response.data));
-      // navigate('/dashboard');
     } catch (error) {
       console.log(error);
     }
