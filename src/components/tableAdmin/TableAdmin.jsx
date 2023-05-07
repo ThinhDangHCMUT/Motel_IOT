@@ -16,8 +16,8 @@ const TableAdmin = ({ data =[]}) => {
             <TableCell style={{ width: 150 }} className="tableCell">Date</TableCell>
             <TableCell className="tableCell">Water (m3)</TableCell>
             <TableCell className="tableCell">Water Cost (m3/VND)</TableCell>
-            <TableCell className="tableCell">Electric (kWH)</TableCell>
-            <TableCell className="tableCell">Electric Cost (kWH/VND)</TableCell>
+            <TableCell className="tableCell">ENERGY (kWH)</TableCell>
+            <TableCell className="tableCell">ENERGY Cost (kWH/VND)</TableCell>
             <TableCell className="tableCell">Status</TableCell>
           </TableRow>
         </TableHead>
@@ -26,10 +26,10 @@ const TableAdmin = ({ data =[]}) => {
             let statusE = 0
             let statusW = 0
             const initWater = data[index].WATER - data[0].WATER
-            const initElectric = data[index].ELECTRIC - data[0].ELECTRIC
+            const initENERGY = data[index].ENERGY - data[0].ENERGY
             if(index > 0 ){
-              statusE = data[index].ELECTRIC - data[index - 1].ELECTRIC - 150
-              statusW = data[index].WATER - data[index - 1].WATER - 150
+              statusE = data[index].ENERGY - data[index - 1].ENERGY - 2
+              statusW = data[index].WATER - data[index - 1].WATER - 200
             }
             return (
               <TableRow key={index}>
@@ -41,8 +41,8 @@ const TableAdmin = ({ data =[]}) => {
                   </div>
                 </TableCell>
                 <TableCell className="tableCell">{initWater}</TableCell>
-                <TableCell className="tableCell">{item.ELECTRIC}</TableCell>
-                <TableCell className="tableCell">{initElectric}</TableCell>
+                <TableCell className="tableCell">{item.ENERGY}</TableCell>
+                <TableCell className="tableCell">{initENERGY}</TableCell>
                 {/* <TableCell className="tableCell">{item.method}</TableCell> */}
                 <TableCell className="tableCell">
                   <span className={`status ${statusE < 0 && statusW < 0 ? 'Approved' : 'Warning'}`}>{statusE < 0 && statusW < 0 ? 'Approved' : 'Warning'}</span>
