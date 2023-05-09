@@ -7,7 +7,6 @@ const mysql = require('mysql2');
 //   password: 'D@ngthinh1402',
 //   database: 'motel_schema2'
 // });
-
 const pool = mysql.createPool({
   connectionLimit: 10,
   user: "root",
@@ -23,7 +22,7 @@ let db={}
 
 db.loginUser = (username,password) => {
   return new Promise((resolve, reject) => {
-    pool.query("SELECT * FROM user JOIN Room ON user.UserID = Room.UserID WHERE Username = ? AND Password = ?",[username,password], (err, res) => {
+    pool.query("SELECT * FROM User JOIN Room ON User.UserID = Room.UserID WHERE Username = ? AND Password = ?",[username,password], (err, res) => {
       if(err) return reject(err);
       return resolve(res[0]);
     })
@@ -43,7 +42,7 @@ db.allRooms = () => {
 
 db.getRoomByID = (id) => {
   return new Promise((resolve, reject) => {
-    pool.query(`SELECT re.ElectricReading, re.WaterReading, re.ReadingDate, r.roomName, r.roomType, u.Email, u.UserName, u.Phone FROM reading re JOIN room r ON r.RoomID = re.RoomID JOIN user u ON u.UserID = r.UserID WHERE r.RoomID = ?`,[id],(err,res) => {
+    pool.query(`SELECT re.ElectricReading, re.WaterReading, re.ReadingDate, r.roomName, r.roomType, u.Email, u.UserName, u.Phone FROM Reading re JOIN Room r ON r.RoomID = re.RoomID JOIN User u ON u.UserID = r.UserID WHERE r.RoomID = ?`,[id],(err,res) => {
       if(err) return reject(err);
       return resolve(res)
     })

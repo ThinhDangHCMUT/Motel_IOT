@@ -28,8 +28,8 @@ const TableAdmin = ({ data =[]}) => {
             const initWater = data[index].WATER - data[0].WATER
             const initENERGY = data[index].ENERGY - data[0].ENERGY
             if(index > 0 ){
-              statusE = data[index].ENERGY - data[index - 1].ENERGY - 150
-              statusW = data[index].WATER - data[index - 1].WATER - 150
+              statusE = data[index].ENERGY - data[index - 1].ENERGY - 2
+              statusW = data[index].WATER - data[index - 1].WATER - 200
             }
             return (
               <TableRow key={index}>

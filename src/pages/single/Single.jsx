@@ -8,14 +8,16 @@ import { getUserRoomDetails } from "../../redux/authRequest";
 import { useEffect, useState } from "react";
 
 const Single = () => {
-  const params = useParams();
-  const [user, setUser] = useState([]);
+  const params = useParams()
+  const [user, setUser] = useState([])
+
   useEffect(async () => {
-    const temp = await getUserRoomDetails(params.RoomID);
-    console.log(temp);
-    setUser(temp);
-  }, []);
-  console.log(user);
+    const temp = await getUserRoomDetails(params.RoomID)
+    console.log(temp)
+    setUser(temp)
+  }, [])
+
+  console.log(user)
   return (
     <div className="single">
       <Sidebar />
@@ -58,12 +60,12 @@ const Single = () => {
             <Chart
               data={user}
               aspect={3 / 1}
-              title="User Spending ( Last 6 Months)"
+              title="Last Tracking"
             />
           </div>
         </div>
         <div className="bottom">
-          <h1 className="title">Last Transactions</h1>
+          <h1 className="title">Last Tracking</h1>
           <List data={user} />
         </div>
       </div>

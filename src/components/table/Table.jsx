@@ -31,8 +31,8 @@ const List = ({ data =[]}) => {
             const initWater = data[index].WaterReading - data[0].WaterReading
             const initElectric = data[index].ElectricReading - data[0].ElectricReading
             if(index > 0 ){
-              statusE = data[index].ElectricReading - data[index - 1].ElectricReading - 150
-              statusW = data[index].WaterReading - data[index - 1].WaterReading - 150
+              statusE = data[index].ElectricReading - data[index - 1].ElectricReading - 2
+              statusW = data[index].WaterReading - data[index - 1].WaterReading - 200
             }
             return (
               <TableRow key={index}>

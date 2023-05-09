@@ -4,6 +4,7 @@ const cors = require('cors');
 const mqtt = require('mqtt')
 const nodemailer = require('nodemailer');
 const userRoute = require('./routes/user')
+const {mailWarning} =  require('./mqtt')
 
 
 const app = express();
@@ -36,11 +37,12 @@ let lastMessage = null
 client.on('message', (topic, message) => {
     var currentdate = new Date();
     var datetime =
-        currentdate.getHours() + ":"
-        + currentdate.getMinutes()
+    currentdate.getHours() + ":"
+    + currentdate.getMinutes()
     console.log(`Received message on topic ${topic}: ${message.toString()}`)
-    lastMessage = message.toString().substring(0, message.toString().length - 2) + `,"date": "${datetime}" }`
+    lastMessage = message.toString().substring(0, message.toString().length - 1) + `,"date": "${datetime}" }`
     console.log(lastMessage)
+    mailWarning(message)    
 })
 
 //Send value 
@@ -48,6 +50,8 @@ app.get('/api/value', (req, res) => {
     console.log('Sending data to frontend:', lastMessage)
     res.send(lastMessage)
 })
+
+
 
 
 const port = process.env.PORT || 8000;
