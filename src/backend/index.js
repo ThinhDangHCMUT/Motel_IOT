@@ -34,6 +34,7 @@ client.on('connect', () => {
 
 
 //Get data from hivemq broker
+//Data like format { "ENERGY": 20, "WATER": 30}
 let lastMessage = null
 // Recieve the message from the broker
 client.on('message', (topic, message) => {
