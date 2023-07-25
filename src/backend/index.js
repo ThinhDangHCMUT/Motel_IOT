@@ -32,6 +32,8 @@ client.on('connect', () => {
     client.subscribe(topic)
 })
 
+
+//Get data from hivemq broker
 let lastMessage = null
 // Recieve the message from the broker
 client.on('message', (topic, message) => {
